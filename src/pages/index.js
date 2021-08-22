@@ -13,7 +13,7 @@ const BlogIndex = ({ data, location }) => {
     return (
       <Layout location={location} title={siteTitle}>
         <Seo title="All posts" />
-        <Bio />
+        {/* <Bio /> */}
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
           directory you specified for the "gatsby-source-filesystem" plugin in
@@ -26,23 +26,28 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <Seo title="All posts" />
-      <Bio />
-      <ol style={{ listStyle: `none` }}>
+      {/* <Bio /> */}
+
+      <ol className="blog-home-list" style={{ listStyle: `none` }}>
+        <li>
+          <h1>
+            All my posts
+          </h1>
+        </li>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
           return (
-            <li key={post.fields.slug}>
+            <li className="post-list-item" key={post.fields.slug}>
+                    <Link to={post.fields.slug} itemProp="url">
               <article
-                className="post-list-item"
+                // className="post-list-item"
                 itemScope
                 itemType="http://schema.org/Article"
               >
                 <header>
                   <h2>
-                    <Link to={post.fields.slug} itemProp="url">
                       <span itemProp="headline">{title}</span>
-                    </Link>
                   </h2>
                   <small>{post.frontmatter.date}</small>
                 </header>
@@ -55,6 +60,7 @@ const BlogIndex = ({ data, location }) => {
                   />
                 </section>
               </article>
+              </Link>
             </li>
           )
         })}
